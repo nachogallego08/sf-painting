@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import logo from '../logo/image.jpg'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -13,9 +14,20 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex flex-col leading-tight">
-          <span className="font-heading font-black text-xl text-gray-900">SF Master Touch</span>
-          <span className="text-xs text-brand-red font-semibold tracking-widest uppercase">Painting & More</span>
+        <Link to="/" className="flex items-center gap-3">
+          <img
+            src={logo}
+            alt="SF Master Touch Painting & More"
+            className="h-12 w-auto object-contain"
+          />
+          <div className="flex flex-col leading-tight">
+            <span className="font-heading font-black text-xl text-gray-900">
+              SF Master Touch
+            </span>
+            <span className="text-xs text-brand-red font-semibold tracking-widest uppercase">
+              Painting & More
+            </span>
+          </div>
         </Link>
 
         {/* Desktop nav */}
@@ -39,10 +51,11 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            {open
-              ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            }
+            {open ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
           </svg>
         </button>
       </div>
@@ -54,7 +67,10 @@ export default function Navbar() {
           <NavLink to="/services" className={linkClass} onClick={() => setOpen(false)}>Services</NavLink>
           <NavLink to="/gallery" className={linkClass} onClick={() => setOpen(false)}>Gallery</NavLink>
           <NavLink to="/contact" className={linkClass} onClick={() => setOpen(false)}>Contact</NavLink>
-          <a href="tel:8439412548" className="bg-brand-red text-white text-sm font-semibold px-4 py-2.5 rounded text-center hover:bg-brand-dark transition-colors">
+          <a
+            href="tel:8439412548"
+            className="bg-brand-red text-white text-sm font-semibold px-4 py-2.5 rounded text-center hover:bg-brand-dark transition-colors"
+          >
             (843) 941-2548
           </a>
         </div>
