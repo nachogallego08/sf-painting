@@ -1,17 +1,67 @@
 import { useState } from 'react'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' })
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    message: '',
+  })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState('')
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // In production, send form data to a backend or form service
-    setSubmitted(true)
+    setLoading(true)
+    setResult('Sending...')
+
+    const formData = new FormData()
+    formData.append('access_key', '1453ecf7-c295-4870-ba51-de9168db1968')
+    formData.append('name', form.name)
+    formData.append('phone', form.phone)
+    formData.append('email', form.email)
+    formData.append('message', form.message)
+    formData.append('subject', `New Website Lead from ${form.name}`)
+    formData.append('from_name', 'SF Master Touch Website')
+    formData.append('botcheck', '')
+
+    const object = Object.fromEntries(formData)
+    const json = JSON.stringify(object)
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: json,
+      })
+
+      const data = await response.json()
+
+      if (response.status === 200 && data.success) {
+        setSubmitted(true)
+        setResult('Message sent successfully!')
+        setForm({
+          name: '',
+          phone: '',
+          email: '',
+          message: '',
+        })
+      } else {
+        setResult(data.message || 'Something went wrong.')
+      }
+    } catch (error) {
+      setResult('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -20,9 +70,13 @@ export default function Contact() {
       <section className="bg-gray-900 text-white py-20 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-2 h-full bg-brand-red" />
         <div className="max-w-6xl mx-auto px-6">
-          <p className="text-brand-red font-semibold text-sm tracking-widest uppercase mb-3">Reach Out</p>
+          <p className="text-brand-red font-semibold text-sm tracking-widest uppercase mb-3">
+            Reach Out
+          </p>
           <h1 className="font-heading text-5xl font-black">Contact Us</h1>
-          <p className="text-gray-400 mt-3 text-lg max-w-xl">Request a free estimate or ask us anything. We typically respond within one business day.</p>
+          <p className="text-gray-400 mt-3 text-lg max-w-xl">
+            Request a free estimate or ask us anything. We typically respond within one business day.
+          </p>
         </div>
       </section>
 
@@ -74,7 +128,10 @@ export default function Contact() {
 
           <div className="mt-10 p-6 bg-gray-50 rounded-lg border border-gray-100">
             <p className="font-semibold text-gray-900 mb-1">Free Estimates</p>
-            <p className="text-gray-500 text-sm leading-relaxed">We offer no-obligation, free estimates for all residential and commercial painting projects. Fill out the form and we'll get back to you promptly.</p>
+            <p className="text-gray-500 text-sm leading-relaxed">
+              We offer no-obligation, free estimates for all residential and commercial painting projects.
+              Fill out the form and we'll get back to you promptly.
+            </p>
           </div>
         </div>
 
@@ -91,6 +148,15 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                style={{ display: 'none' }}
+                tabIndex="-1"
+                autoComplete="off"
+              />
+
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1.5">
                   Full Name <span className="text-brand-red">*</span>
@@ -156,10 +222,15 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-brand-red text-white font-semibold py-4 rounded hover:bg-brand-dark transition-colors text-lg"
+                disabled={loading}
+                className="w-full bg-brand-red text-white font-semibold py-4 rounded hover:bg-brand-dark transition-colors text-lg disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Send Message
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
+
+              {result && (
+                <p className="text-sm text-center text-gray-500">{result}</p>
+              )}
 
               <p className="text-xs text-gray-400 text-center">
                 Or call us directly at <a href="tel:8439412548" className="text-brand-red font-semibold">(843) 941-2548</a>
