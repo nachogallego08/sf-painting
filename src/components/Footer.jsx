@@ -31,17 +31,27 @@ export default function Footer() {
           {/* Phone */}
           <a
             href="tel:8439412548"
-            className="flex items-center gap-2 text-sm mb-2 hover:text-brand-red transition-colors"
+            className="flex items-center gap-3 text-sm mb-3 hover:text-brand-red transition-colors"
           >
-            📞 (843) 941-2548
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            (843) 941-2548
           </a>
 
           {/* Email */}
           <a
             href="mailto:sfmastertouchpaintingservices@gmail.com"
-            className="flex items-center gap-2 text-sm mb-2 hover:text-brand-red transition-colors"
+            className="flex items-center gap-3 text-sm mb-3 hover:text-brand-red transition-colors"
           >
-            📧 sfmastertouchpaintingservices@gmail.com
+            <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M12 13.065L0 6.75V18a2 2 0 002 2h20a2 2 0 002-2V6.75l-12 6.315z"/>
+              <path fill="#34A853" d="M12 13.065l12-6.315V6a2 2 0 00-2-2h-2l-8 5-8-5H2a2 2 0 00-2 2v.75l12 6.315z"/>
+              <path fill="#FBBC05" d="M0 6.75l12 6.315L24 6.75V6l-12 6L0 6z"/>
+              <path fill="#4285F4" d="M0 6l12 6 12-6-12-6z"/>
+            </svg>
+            sfmastertouchpaintingservices@gmail.com
           </a>
 
           {/* Facebook */}
@@ -49,9 +59,12 @@ export default function Footer() {
             href="https://www.facebook.com/profile.php?id=61572403463429"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm mb-2 hover:text-brand-red transition-colors"
+            className="flex items-center gap-3 text-sm mb-3 hover:text-brand-red transition-colors"
           >
-            👍 Facebook
+            <svg className="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
+              <path d="M22 12a10 10 0 10-11.5 9.95v-7.05h-2.5V12h2.5V9.8c0-2.47 1.47-3.84 3.72-3.84 1.08 0 2.21.2 2.21.2v2.43h-1.24c-1.22 0-1.6.76-1.6 1.54V12h2.72l-.43 2.9h-2.29v7.05A10 10 0 0022 12z"/>
+            </svg>
+            Facebook
           </a>
 
           <p className="text-xs text-gray-500 mt-4">
